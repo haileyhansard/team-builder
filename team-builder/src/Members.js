@@ -1,7 +1,17 @@
-// import React from 'react'
+import React from 'react'
 
-// // const Members = props => {
-// // <h1>Hailey</h1>
-// // }
+export default function Members(props) {
+    const { details } = props
 
-// export default Members;
+    if (!details){
+        return <h3>Working on fetching your member details...</h3>
+    }
+
+    return (
+        <div>
+            <h2>{details.name}</h2>
+            <p>Email: {details.email}</p>
+            <p>Role: {details.role}</p>
+        </div>
+    )
+}
