@@ -11,11 +11,19 @@ const Form = props => {
        setList({name: event.target.value})
        console.log(list);
    }
+
+const submitForm = event => {
+    event.preventDefault();
+    props.addNewMember(list);
+}
+
     return(
 
-   <form>
-        <label>Hello</label>
+   <form onSubmit={submitForm}>
+        <label>Label on Form Page:</label>
         <input id="name" type="text" onChange={handleChanges}/>
+        <label>Add your bio here:</label>
+        <textarea id="bio"/>
     </form>
     ) 
 };
