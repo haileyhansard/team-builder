@@ -5,6 +5,7 @@ export default function Form (props) {
         values,
         onInputChange,
         onSubmit,
+        error
     } = props
 
     return(
@@ -13,7 +14,9 @@ export default function Form (props) {
                 <h2>Add a Team Member!</h2>
                 <button>Submit</button>
             </div>
-
+            {
+                error && <p>{error}</p>
+            }
             <div>
                 <h4>General Information</h4>
                 <label>Name:

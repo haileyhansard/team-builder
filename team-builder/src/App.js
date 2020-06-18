@@ -11,38 +11,36 @@ const initialFormValues = {
 }
 
 export default function App() {
-  
   const [members, setMembers] = useState(initialMembers)
   const [error, setError] = useState('')
   const [formValues, setFormValues] = useState(initialFormValues)
 
   const onInputChange = evt => {
-    const name = evt.target.name
-    const value = evt.target.value
-    setFormValues({
+    const {name, value} = evt.target;
+    setFormValues(formValues => ({
       ...formValues,
       [name]:value,
-    })
+    }));
   }
   
   const onSubmit = evt => {
     evt.preventDefault()
     if (!formValues.name || !formValues.email || !formValues.role){
-      setError("You need to fill out all information")
-      return
+      setError("You need to fill out all information");
+    } else {
+      const newMember = {
+        name: formValues.name.trim(),
+        email: formValues.email.trim(),
+        role: formValues.role,
     }
-    setError('')
+      setMembers(members => {
+        // return members.concat(newMember);
+        return [...members, newMember];
+      });
+      setError('');
+      setFormValues(initialFormValues);
+    }
   }
-  
-  const newMember = {
-      name: formValues.name.trim(),
-      email: formValues.email.trim(),
-      role: formValues.role,
-  }
-
-  setMembers(members => [newMember, ...members])
-  setFormValues(initialFormValues)
-
   
   return (
     <div className="App">
@@ -51,6 +49,7 @@ export default function App() {
         values={formValues}
         onInputChange={onInputChange}
         onSubmit={onSubmit}
+        error={error}
       />
       {
         members.map(member => {
